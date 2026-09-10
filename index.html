@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="description" content="ARKANOID - Edição MS-DOS. Breakout retrô monocromático, PWA instalável e offline.">
+<meta name="theme-color" content="#000000">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/style.css">
+<title>ARKANOID // MS-DOS</title>
+</head>
+<body>
+<noscript>
+  <div style="padding:20px;text-align:center;font-family:monospace">ESTE JOGO REQUER JAVASCRIPT ATIVADO.</div>
+</noscript>
+
+<div class="scrim scanlines" aria-hidden="true"></div>
+<div class="scrim flicker" aria-hidden="true"></div>
+<div class="scrim vignette" aria-hidden="true"></div>
+
+<main id="app" class="app">
+
+  <section id="screen-menu" class="screen active">
+    <div class="boot"><pre id="bootText"></pre></div>
+    <div class="menu-body">
+      <pre id="logo" class="logo"></pre>
+      <div class="menu-status">
+        <span id="highPreview">RECORDE: 0</span>
+        <span>MEM 640K OK</span>
+      </div>
+      <nav id="mainMenu" class="menu" aria-label="Menu principal"></nav>
+      <div class="hint">▲▼ SELECIONA &nbsp;·&nbsp; ENTER CONFIRMA &nbsp;·&nbsp; TOQUE ESCOLHE</div>
+    </div>
+    <footer class="statusbar"><span>C:\ARKANOID&gt;</span><span class="cursorBlink">_</span></footer>
+    <div class="credits">© 2026 · DESENVOLVIDO POR ANDRÉ LOPES</div>
+  </section>
+
+  <section id="screen-help" class="screen">
+    <div class="panel">
+      <h2>// COMO JOGAR</h2>
+      <div class="help-list">
+        <div><span class="key">◄</span> <span class="key">►</span> ou <span class="key">A</span>/<span class="key">D</span> &nbsp;·&nbsp; move a raquete</div>
+        <div><span class="key">SPACE</span> / clique &nbsp;&nbsp;·&nbsp;&nbsp; lança a bola</div>
+        <div><span class="key">P</span>/<span class="key">ESC</span> &nbsp;&nbsp;&nbsp;·&nbsp;&nbsp; pausa</div>
+        <div><span class="key">M</span> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;·&nbsp;&nbsp; som on/off</div>
+        <div class="sep"></div>
+        <div>TOQUE: arraste o dedo sobre a tela para mover a raquete e toque em LANÇAR para soltar a bola.</div>
+        <div>Destrua todos os blocos para avançar de fase. Fases mais altas = bola mais rápida.</div>
+      </div>
+      <div class="row">
+        <button data-nav="newgame">► INICIAR</button>
+        <button data-nav="menu">VOLTAR</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="screen-game" class="screen">
+    <div id="gameWrap">
+      <canvas id="game" width="480" height="600"></canvas>
+    </div>
+    <div id="inBar">
+      <button id="btnSound" class="icon" aria-label="Alternar som">◉</button>
+      <button id="btnLeft" class="icon grow" aria-label="Mover para a esquerda">◄◄</button>
+      <button id="btnRight" class="icon grow" aria-label="Mover para a direita">►►</button>
+      <button id="btnPause" class="icon" aria-label="Pausar">II</button>
+      <button id="btnLaunch" aria-label="Lançar a bola">LANÇAR</button>
+    </div>
+    <div id="pauseOverlay" role="dialog" aria-label="Jogo pausado">
+      <div class="pauseBox" data-resume>
+        <div>JOGO PAUSADO</div>
+        <div class="hint">[P] OU CLIQUE PARA CONTINUAR</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="screen-result" class="screen">
+    <div class="panel">
+      <pre id="resultArt" class="logo small"></pre>
+      <h2 id="resultTitle" class="center">GAME OVER</h2>
+      <p id="resultMsg" class="sub center"></p>
+      <div class="stats">
+        <div class="statline">SCORE&nbsp; <b id="finalScore">000000</b></div>
+        <div class="statline">NÍVEL&nbsp; <b id="finalLevel">01</b></div>
+        <div class="statline" id="rankLine" hidden>POSIÇÃO&nbsp; <b id="finalRank">#1</b></div>
+      </div>
+      <div id="nameEntry" hidden>
+        <div class="nameLabel">RECORDE! DIGITE SEU NOME (&lt; 3 LETRAS)</div>
+        <div class="nameRow">
+          <input id="playerName" maxlength="3" autocomplete="off" spellcheck="false" autocapitalize="characters" placeholder="AAA">
+          <button id="btnSave">OK</button>
+        </div>
+      </div>
+      <div class="row">
+        <button data-nav="newgame">► REJOGAR</button>
+        <button data-nav="scores">RANKING</button>
+        <button data-nav="menu">MENU</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="screen-scores" class="screen">
+    <div class="panel wide">
+      <h2>// HIGH-SCORES</h2>
+      <table id="scoreTable" class="scores"></table>
+      <div class="row">
+        <button data-nav="newgame">► INICIAR</button>
+        <button id="btnClearScores">APAGAR</button>
+        <button data-nav="menu">MENU</button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/app.js"></script>
+</body>
+</html>
