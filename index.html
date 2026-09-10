@@ -61,15 +61,18 @@
   </section>
 
   <section id="screen-game" class="screen">
+    <div id="gameTop">
+      <button id="btnHome" class="topbtn" aria-label="Voltar ao menu">◀ MENU</button>
+      <button id="btnPause" class="topbtn" aria-label="Pausar">PAUSA</button>
+      <button id="btnSound" class="topbtn" aria-label="Alternar som">SOM ◉</button>
+    </div>
     <div id="gameWrap">
       <canvas id="game" width="480" height="600"></canvas>
     </div>
     <div id="inBar">
-      <button id="btnSound" class="icon" aria-label="Alternar som">◉</button>
-      <button id="btnLeft" class="icon grow" aria-label="Mover para a esquerda">◄◄</button>
-      <button id="btnRight" class="icon grow" aria-label="Mover para a direita">►►</button>
-      <button id="btnPause" class="icon" aria-label="Pausar">II</button>
-      <button id="btnLaunch" aria-label="Lançar a bola">LANÇAR</button>
+      <button id="btnLeft" class="big grow" aria-label="Mover para a esquerda">◄◄</button>
+      <button id="btnLaunch" class="big" aria-label="Lançar a bola">LANÇAR</button>
+      <button id="btnRight" class="big grow" aria-label="Mover para a direita">►►</button>
     </div>
     <div id="pauseOverlay" role="dialog" aria-label="Jogo pausado">
       <div class="pauseBox" data-resume>

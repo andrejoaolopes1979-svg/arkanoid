@@ -334,6 +334,7 @@ class Game {
     this.score = 0;
     this.lives = MAX_LIVES;
     this.startLevel(1);
+    this.resize();
   }
 
   startLevel(level) {
@@ -560,6 +561,12 @@ class Game {
     AudioFX.select();
   }
 
+  goHome() {
+    this.state = 'paused';
+    document.getElementById('pauseOverlay').classList.remove('visible');
+    Screens.go('menu');
+  }
+
   toLogicalX(e) {
     const rect = this.canvas.getBoundingClientRect();
     return ((e.clientX - rect.left) / rect.width) * W;
@@ -666,6 +673,11 @@ class Game {
     btn('btnSound').addEventListener('click', () => {
       AudioFX.unlock();
       this.toggleSound();
+    });
+    btn('btnHome').addEventListener('click', () => {
+      AudioFX.unlock();
+      AudioFX.select();
+      this.goHome();
     });
     btn('btnSave').addEventListener('click', () => this.saveName());
     btn('playerName').addEventListener('keydown', (e) => {
@@ -885,5 +897,6 @@ function registerSW() {
   wireNav();
   bootSequence();
   registerSW();
+  window.addEventListener('load', () => game.resize());
   window.addEventListener('resize', () => game.resize());
 })();

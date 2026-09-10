@@ -363,23 +363,39 @@ button:active {
 #screen-game {
   position: relative;
   padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
+  justify-content: flex-start;
+  gap: 6px;
+}
+
+#gameTop {
+  flex: 0 0 auto;
+  display: flex;
   justify-content: center;
   gap: 6px;
+}
+
+#gameTop .topbtn {
+  min-height: 40px;
+  padding: 0 12px;
+  font-size: 12px;
+  letter-spacing: 2px;
 }
 
 #gameWrap {
   flex: 1 1 auto;
   min-height: 0;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: 2px;
+  overflow: hidden;
 }
 
 #game {
   display: block;
   max-width: 100%;
   max-height: 100%;
-  width: 100%;
+  width: auto;
   height: auto;
   background: #000;
   border: 1px solid var(--fg-dark);
@@ -389,33 +405,34 @@ button:active {
 
 #inBar {
   flex: 0 0 auto;
+  position: relative;
+  z-index: 2;
   display: flex;
-  align-items: center;
-  gap: 6px;
+  align-items: stretch;
+  gap: 8px;
+  background: var(--bg);
 }
 
 #inBar button {
-  font-size: 15px;
-  min-height: 44px;
+  font-size: 17px;
+  min-height: 52px;
   touch-action: none;
+  padding: 0 6px;
 }
 
-#inBar .icon {
-  width: 48px;
-  flex: 0 0 auto;
-}
-
-#inBar .grow {
+#inBar .big.grow {
   flex: 1;
 }
 
-#inBar .icon.off {
-  opacity: 0.35;
+#btnLaunch {
+  flex: 0 0 auto;
+  min-width: 110px;
+  font-size: 14px;
+  letter-spacing: 2px;
 }
 
-#btnLaunch {
-  min-width: 96px;
-  letter-spacing: 2px;
+#gameTop .topbtn.off {
+  opacity: 0.35;
 }
 
 #pauseOverlay {
