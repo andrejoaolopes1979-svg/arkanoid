@@ -13,7 +13,6 @@ const ROW_VALUE = [50, 50, 30, 30, 20, 10];
 const ROW_HP = [1, 1, 1, 1, 2, 2];
 const PADDLE_W = 92;
 const PADDLE_H = 14;
-const PADDLE_Y = H - 52;
 const PADDLE_SPEED = 430;
 const BALL_R = 7;
 const BASE_SPEED = 300;
@@ -304,12 +303,13 @@ class Game {
     this.lives = MAX_LIVES;
     this.score = 0;
     this.best = HighScores.best();
-    this.paddle = { x: 0, w: PADDLE_W, y: PADDLE_Y, keyDir: 0, ctrlMode: 'key', target: null };
+    this.paddle = { x: 0, w: PADDLE_W, y: H - 52, keyDir: 0, ctrlMode: 'key', target: null };
     this.ball = { x: 0, y: 0, vx: 0, vy: 0, r: BALL_R, docked: true, spd: BASE_SPEED };
     this.bricks = [];
     this.trail = [];
     this.banner = null;
     this.loopT0 = 0;
+    this.fH = H;
     this.resize();
     this.bind();
     this.newGame();
@@ -318,16 +318,19 @@ class Game {
 
   resize() {
     this.dpr = Math.min(window.devicePixelRatio || 1, 2);
-    this.canvas.width = W * this.dpr;
-    this.canvas.height = H * this.dpr;
-    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     const wrap = document.getElementById('gameWrap');
-    if (!wrap) return;
-    const cw = wrap.clientWidth || W;
-    const ch = wrap.clientHeight || H;
-    const scale = Math.min(cw / W, ch / H);
+    const cw = wrap ? (wrap.clientWidth || W) : W;
+    const ch = wrap ? (wrap.clientHeight || H) : H;
+    let fH = Math.round((W * ch) / cw);
+    if (fH < H) fH = H;
+    this.fH = fH;
+    this.canvas.width = W * this.dpr;
+    this.canvas.height = fH * this.dpr;
+    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+    const scale = Math.min(cw / W, ch / fH);
     this.canvas.style.width = Math.floor(W * scale) + 'px';
-    this.canvas.style.height = Math.floor(H * scale) + 'px';
+    this.canvas.style.height = Math.floor(fH * scale) + 'px';
+    this.paddle.y = fH - 52;
   }
 
   newGame() {
@@ -371,12 +374,13 @@ class Game {
     this.paddle.keyDir = 0;
     this.paddle.ctrlMode = 'key';
     this.paddle.target = null;
+    this.paddle.y = this.fH - 52;
     this.ball.spd = Math.min(BASE_SPEED + SPEED_STEP * (this.level - 1), MAX_SPEED);
     this.ball.docked = true;
     this.ball.vx = 0;
     this.ball.vy = 0;
     this.ball.x = this.paddle.x + PADDLE_W / 2;
-    this.ball.y = PADDLE_Y - BALL_R - 1;
+    this.ball.y = this.paddle.y - BALL_R - 1;
   }
 
   launch() {
@@ -416,7 +420,7 @@ class Game {
 
     if (this.ball.docked) {
       this.ball.x = pad.x + PADDLE_W / 2;
-      this.ball.y = PADDLE_Y - BALL_R - 1;
+      this.ball.y = this.paddle.y - BALL_R - 1;
       if (this.banner) {
         this.banner.t -= dt;
         if (this.banner.t <= 0) this.banner = null;
@@ -500,7 +504,7 @@ class Game {
       break;
     }
 
-    if (b.y - b.r > H) this.loseLife();
+    if (b.y - b.r > this.fH) this.loseLife();
   }
 
   loseLife() {
@@ -712,10 +716,10 @@ class Game {
   render() {
     const ctx = this.ctx;
     ctx.fillStyle = '#000';
-    ctx.fillRect(0, 0, W, H);
+    ctx.fillRect(0, 0, W, this.fH);
     ctx.strokeStyle = 'rgba(51,255,102,0.18)';
     ctx.lineWidth = 1;
-    ctx.strokeRect(0.5, 0.5, W - 1, H - 1);
+    ctx.strokeRect(0.5, 0.5, W - 1, this.fH - 1);
     this.drawTrail(ctx);
     this.drawBricks(ctx);
     this.drawPaddle(ctx);
@@ -832,7 +836,7 @@ class Game {
     ctx.textAlign = 'center';
     ctx.fillStyle = 'rgba(51,255,102,0.8)';
     ctx.font = '12px "Courier New", monospace';
-    ctx.fillText('PRESSIONE [ESPAÇO] OU TOQUE PARA LANÇAR', W / 2, PADDLE_Y - 30);
+    ctx.fillText('PRESSIONE [ESPAÇO] OU TOQUE PARA LANÇAR', W / 2, this.fH - 52 - 30);
   }
 }
 

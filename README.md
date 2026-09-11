@@ -77,7 +77,7 @@ arkanoid/
 
 ### Física
 
-- Posições em unidades lógicas de 480×600, escaladas para caber na tela via CSS/DPR.
+- Posições em unidades lógicas de 480 de largura com altura adaptável (600 base), escaladas para ocupar a tela inteira via CSS/DPR.
 - A raquete reflete a bola com **ângulo proporcional ao ponto de impacto** (até 60°).
 - Colisão com blocos por detecção círculo-retângulo, resolvida pelo eixo de menor penetração.
 - Velocidade da bola aumenta por fase (`BASE_SPEED + SPEED_STEP × nível`), com teto.
