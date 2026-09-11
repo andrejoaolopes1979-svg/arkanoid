@@ -364,7 +364,7 @@ button:active {
   position: relative;
   padding: 6px 8px calc(6px + env(safe-area-inset-bottom));
   justify-content: flex-start;
-  gap: 6px;
+  gap: 2px;
 }
 
 #gameTop {
@@ -372,6 +372,7 @@ button:active {
   display: flex;
   justify-content: center;
   gap: 6px;
+  margin-bottom: 2px;
 }
 
 #gameTop .topbtn {
@@ -387,7 +388,6 @@ button:active {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  padding-top: 2px;
   overflow: hidden;
 }
 

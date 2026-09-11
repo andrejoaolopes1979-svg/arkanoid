@@ -328,8 +328,8 @@ class Game {
     this.canvas.height = fH * this.dpr;
     this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
     const scale = Math.min(cw / W, ch / fH);
-    this.canvas.style.width = Math.floor(W * scale) + 'px';
-    this.canvas.style.height = Math.floor(fH * scale) + 'px';
+    this.canvas.style.width = Math.round(W * scale) + 'px';
+    this.canvas.style.height = Math.round(fH * scale) + 'px';
     this.paddle.y = fH - 52;
   }
 

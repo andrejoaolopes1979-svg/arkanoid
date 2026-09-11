@@ -1,6 +1,6 @@
 'use strict';
 
-const CACHE_NAME = 'arknoid-v1';
+const CACHE_NAME = 'arknoid-v2';
 
 const PRECACHE = [
   './',
