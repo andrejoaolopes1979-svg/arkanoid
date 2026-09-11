@@ -267,8 +267,8 @@ const Screens = (function () {
     AudioFX.unlock();
     switch (name) {
       case 'newgame':
-        if (game) game.newGame();
         show('game');
+        if (game) game.newGame();
         break;
       case 'menu':
         updateMenuMeta();
